@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PermanentDrawerLeft from './PermanentDrawerLeft';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -21,8 +21,19 @@ import BasicTextFields from './BasicTextFields';
 
 const drawerWidth = 240;
 function InvoicesDetails() {
+  const [details, setDetails] = useState({});
   const pathParams = useParams();
-  console.log("pathParams :: ", pathParams);
+
+  React.useState(() => {
+    const existingInvoices = localStorage.getItem('invoices');
+    if (existingInvoices) {
+      const parsedList = JSON.parse(existingInvoices);
+      const itemDetails = parsedList.find((ele) => ele.Id.toString() === pathParams.id);
+      if (itemDetails) {
+        setDetails({...itemDetails});
+      }
+    }
+  }, []);
 
     return (
       <PermanentDrawerLeft>
@@ -38,7 +49,17 @@ function InvoicesDetails() {
       <Box>
         <Typography paragraph>
           Invoices Details
-        </Typography>  
+        </Typography>
+        {Object.keys(details).length
+        ?
+        <List>
+          {Object.keys(details).map((ele) => <ListItem key={details.Id}>
+            {`${ele} : ${details[ele]}`}
+          </ListItem>)}
+        </List>
+        :
+        <Typography paragraph>Some thing went wrong, Please try again..!</Typography>
+        }
       </Box>
       }
       </PermanentDrawerLeft>

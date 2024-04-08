@@ -43,7 +43,7 @@ export default function BasicTable({invoicesList}) {
           <TableHead>
             <TableRow>
               {Object.keys(parsedInvoicesList[0]).map((ele) => 
-                <TableCell>{ele}</TableCell>
+                <TableCell key={ele}>{ele}</TableCell>
               )}
             </TableRow>
           </TableHead>
