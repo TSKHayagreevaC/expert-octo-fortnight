@@ -32,7 +32,7 @@ export default function BasicTable({invoicesList}) {
         setrpg(parseInt(event.target.value, 10)); 
         setpg(0); 
     } 
-  const parsedInvoicesList = invoicesList ? JSON.parse(invoicesList) : [];
+  const parsedInvoicesList = invoicesList.length ? JSON.parse(invoicesList) : [];
   return (
     <Box>
       {parsedInvoicesList.length
