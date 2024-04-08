@@ -33,7 +33,6 @@ export default function BasicTextFields() {
   }
 
   const createNewInvoice = (name, quantity, price, amount) => {
-    console.log(name, quantity, price, amount);
     const newInvoice = {
       ...invoice
     };
@@ -63,8 +62,11 @@ export default function BasicTextFields() {
   return (
     <Box
       component="form"
+      display={`flex`}
+      alignItems={`bottom`}
+      flexDirection={`center`}
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { mr: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"
@@ -74,7 +76,7 @@ export default function BasicTextFields() {
       <TextField onChange={(e) => createNewInvoice("", "", e.target.value, "")} label="Price" variant="standard" />
       <TextField onChange={(e) => createNewInvoice("", "", "", e.target.value)} label="Amount" variant="standard" />
 
-      <Button sx={{m: 0}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Submit</Button>
+      <Button sx={{margin: 0}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Submit</Button>
 
     </Box>
   );

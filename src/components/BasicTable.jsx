@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
 function createData(name, purchase, cost, tax, total) {
@@ -17,38 +19,47 @@ const rows = [
   createData('person_two', 237, 9.0, 37, 4.3),
 ];
 
-export default function BasicTable() {
+export default function BasicTable({invoicesList}) {
+  const parsedInvoicesList = invoicesList ? JSON.parse(invoicesList) : [];
   return (
     <TableContainer component={Paper}>
+      {parsedInvoicesList.length
+      ?
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Purchase</TableCell>
-            <TableCell align="right">Cost</TableCell>
-            <TableCell align="right">Tax</TableCell>
-            <TableCell align="right">Total</TableCell>
+            {Object.keys(parsedInvoicesList[0]).map((ele) => 
+              <TableCell>{ele}</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {parsedInvoicesList.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.Id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <Link to={`/invoices/${row.name}`}>
-                    {row.name}
+                <Link to={`/invoices/${row.Id}`}>
+                  {row.Id}
                 </Link>
               </TableCell>
-              <TableCell align="right">{row.purchase}</TableCell>
-              <TableCell align="right">{row.cost}</TableCell>
-              <TableCell align="right">{row.tax}</TableCell>
-              <TableCell align="right">{row.total}</TableCell>
+              <TableCell>{row.itemName}</TableCell>
+              <TableCell>{row.quantity}</TableCell>
+              <TableCell>{row.price}</TableCell>
+              <TableCell>{row.amount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      :
+      <Box>
+        <Typography>No Invoices Available..!</Typography>
+        <Link to={`/invoices/new`}>
+            Create Invoice
+        </Link>
+      </Box>
+      }
     </TableContainer>
   );
 }

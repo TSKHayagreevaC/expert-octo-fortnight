@@ -17,6 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import {Link} from 'react-router-dom';
 import BasicTable from './BasicTable';
 import Button from '@mui/material/Button';
+import { Add } from '@mui/icons-material';
 
 const drawerWidth = 240;
 function Invoices() {
@@ -30,73 +31,22 @@ function Invoices() {
       }
     }, []);
 
-    return  <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <Toolbar />
-      <List>
-        {['Home'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+    return  (
+      <PermanentDrawerLeft>
+        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" mb={2}>
+          <Typography paragraph>
+            Invoices
+          </Typography>
+            <Link to="/invoices/new" >
+          <Button startIcon={<Add />} size="small" variant="contained">
+                Add
+            </Button>
             </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Invoices'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/invoices'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Drawer>
-
-
-    <Box
-      component="main"
-      sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-    >
-      <Toolbar />
-      <Typography paragraph>
-        Invoices
-      </Typography>
-        <Link to="/invoices/new" >
-      <Button variant="contained">
-            +Add
-        </Button>
-        </Link>
+        </Box>
       <BasicTable invoicesList={invoicesList} />
-      
-    </Box>
-  </Box>
+    </PermanentDrawerLeft>
+    )
+    
 }
 
 export default Invoices;

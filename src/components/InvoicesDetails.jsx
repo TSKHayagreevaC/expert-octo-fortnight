@@ -24,62 +24,8 @@ function InvoicesDetails() {
   const pathParams = useParams();
   console.log("pathParams :: ", pathParams);
 
-    return  <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <Toolbar />
-      <List>
-        {['Home'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Invoices'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/invoices'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Drawer>
-
-
-    <Box
-      component="main"
-      sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-    >
-      <Toolbar />
-
+    return (
+      <PermanentDrawerLeft>
       {pathParams.id === 'new'
       ?
       <Box>
@@ -95,9 +41,8 @@ function InvoicesDetails() {
         </Typography>  
       </Box>
       }
-      
-    </Box>
-  </Box>
+      </PermanentDrawerLeft>
+    );
 }
 
 export default InvoicesDetails;

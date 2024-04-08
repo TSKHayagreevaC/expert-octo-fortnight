@@ -19,67 +19,11 @@ import {Link} from 'react-router-dom';
 const drawerWidth = 240;
 function Home() {
 
-    return  <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <Toolbar />
-      <List>
-        {['Home'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Invoices'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to='/invoices'>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Drawer>
-
-
-    <Box
-      component="main"
-      sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-    >
-      <Toolbar />
-      <Typography paragraph>
-        Home
-      </Typography>
-      
-    </Box>
-  </Box>
+    return (
+      <PermanentDrawerLeft>
+        <Typography>Home</Typography> 
+      </PermanentDrawerLeft>
+    )
 }
 
 export default Home;
