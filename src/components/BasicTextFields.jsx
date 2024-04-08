@@ -2,9 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 
 export default function BasicTextFields() {
-
+  const navigate = useNavigate();
   const [invoice, setInvoice] = React.useState({
             Id: "",
             itemName: "",
@@ -30,6 +31,7 @@ export default function BasicTextFields() {
 
     }
     localStorage.setItem("invoices", JSON.stringify(updatedInvoices));
+    navigate("/invoices");
   }
 
   const createNewInvoice = (name, quantity, price, amount) => {
@@ -71,10 +73,10 @@ export default function BasicTextFields() {
       noValidate
       autoComplete="off"
     >
-      <TextField onChange={(e) => createNewInvoice(e.target.value, "", "", "")} label="Item Name" variant="standard" />
-      <TextField onChange={(e) => createNewInvoice("", e.target.value, "", "")} label="Quantity" variant="standard" />
-      <TextField onChange={(e) => createNewInvoice("", "", e.target.value, "")} label="Price" variant="standard" />
-      <TextField onChange={(e) => createNewInvoice("", "", "", e.target.value)} label="Amount" variant="standard" />
+      <TextField variant="outlined" onChange={(e) => createNewInvoice(e.target.value, "", "", "")} label="Item Name" />
+      <TextField variant="outlined" onChange={(e) => createNewInvoice("", e.target.value, "", "")} label="Quantity" />
+      <TextField variant="outlined" onChange={(e) => createNewInvoice("", "", e.target.value, "")} label="Price" />
+      <TextField variant="outlined" onChange={(e) => createNewInvoice("", "", "", e.target.value)} label="Amount" />
 
       <Button sx={{margin: 0}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Submit</Button>
 

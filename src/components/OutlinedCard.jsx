@@ -19,22 +19,20 @@ const card = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        Word of the Day
+        Welcome
       </Typography>
       <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
+        Invoice App
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        adjective
+        Standards
       </Typography>
       <Typography variant="body2">
-        well meaning and kindly.
-        <br />
-        {'"a benevolent smile"'}
+        Quantities and Costs of the products or services.
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Learn More</Button>
+      <Button component="a" href="/invoices" sx={{textTransform: 'none'}} variant='contained' size="small">Explore</Button>
     </CardActions>
   </React.Fragment>
 );

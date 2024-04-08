@@ -15,13 +15,16 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {Link} from 'react-router-dom';
+import OutlinedCard from './OutlinedCard';
 
 const drawerWidth = 240;
 function Home() {
 
     return (
       <PermanentDrawerLeft>
-        <Typography>Home</Typography> 
+        <Box maxWidth={300}>
+          <OutlinedCard /> 
+        </Box>
       </PermanentDrawerLeft>
     )
 }
