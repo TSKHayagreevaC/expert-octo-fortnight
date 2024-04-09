@@ -16,7 +16,8 @@ export default function BasicTextFields() {
 
   const submitNewInvoice = () => {
     const invoices = localStorage.getItem('invoices');
-    const brandNewInvoice = {...invoice, Id: Date.now()};
+    const brandNewInvoice = {...invoice, Id: Date.now(), amount: invoice.amount};
+    console.log('brndNewInvoice :: ', brandNewInvoice);
     let updatedInvoices = [];
     if (invoices) {
       const existingInvoices = JSON.parse(invoices)
@@ -34,33 +35,6 @@ export default function BasicTextFields() {
     navigate("/invoices");
   }
 
-  const createNewInvoice = (name, quantity, price, amount) => {
-    const newInvoice = {
-      ...invoice
-    };
-
-    if (name) {
-      newInvoice.itemName = name;
-    }
-
-    if(quantity) {
-      newInvoice.quantity = quantity;
-    }
-
-    if (price) {
-      newInvoice.price = price;
-    }
-
-    if (amount) {
-      newInvoice.amount = amount;
-    }
-
-    console.log(newInvoice);
-
-
-    setInvoice(newInvoice); 
-  }
-
   return (
     <Box
       component="form"
@@ -71,12 +45,12 @@ export default function BasicTextFields() {
         '& > :not(style)': { mr: 1, width: '25ch' },
       }}
       noValidate
-      autoComplete="off"
+      autoComplete="off" 
     >
-      <TextField variant="outlined" onChange={(e) => createNewInvoice(e.target.value, "", "", "")} label="Item Name" />
-      <TextField variant="outlined" onChange={(e) => createNewInvoice("", e.target.value, "", "")} label="Quantity" />
-      <TextField variant="outlined" onChange={(e) => createNewInvoice("", "", e.target.value, "")} label="Price" />
-      <TextField variant="outlined" onChange={(e) => createNewInvoice("", "", "", e.target.value)} label="Amount" />
+      <TextField type="string" value={invoice.itemName} variant="outlined" onChange={(e) => setInvoice({...invoice, itemName: e.target.value})} label="Item Name" />
+      <TextField type="number" value={invoice.quantity} variant="outlined" onChange={(e) => setInvoice({...invoice, quantity: e.target.value, amount: e.target.value*invoice.price})} label="Quantity" />
+      <TextField type="number" value={invoice.price} variant="outlined" onChange={(e) => setInvoice({...invoice, price: e.target.value, amount: e.target.value*invoice.quantity})} label="Price" />
+      <TextField type="number" value={invoice.amount} variant="outlined" onChange={(e) => setInvoice({...invoice, amount: e.target.value})} label="Amount" />
 
       <Button sx={{margin: 0}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Submit</Button>
 
