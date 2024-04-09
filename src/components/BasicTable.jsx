@@ -37,8 +37,8 @@ export default function BasicTable({invoicesList}) {
     <Box>
       {parsedInvoicesList.length
         ?
-        <Paper>
-        <TableContainer component={Paper}>
+        <Box>
+        <TableContainer sx={{maxWidth: '84vw', overflow: 'auto'}} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -53,15 +53,18 @@ export default function BasicTable({invoicesList}) {
                 key={row.Id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  <Link to={`/invoices/${row.Id}`}>
-                    {row.Id}
-                  </Link>
-                </TableCell>
-                <TableCell>{row.itemName}</TableCell>
-                <TableCell>{row.quantity}</TableCell>
-                <TableCell>{row.price}</TableCell>
-                <TableCell>{row.amount}</TableCell>
+                {Object.keys(parsedInvoicesList[0]).map((ele) => 
+                  <TableCell key={ele}>
+                    {ele === "Id"
+                    ?
+                    <Link to={`/invoices/${row[ele]}`}>
+                      {row[ele]}
+                    </Link>
+                    :
+                    <>{JSON.stringify(row[ele])}</>
+                    }
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
@@ -76,7 +79,7 @@ export default function BasicTable({invoicesList}) {
         onPageChange={handleChangePage} 
         onRowsPerPageChange={handleChangeRowsPerPage} 
       /> 
-      </Paper>
+      </Box>
         :
         <Box>
           <Typography>No Invoices Available..!</Typography>
