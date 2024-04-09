@@ -17,18 +17,13 @@ export default function BasicTextFields() {
   const submitNewInvoice = () => {
     const invoices = localStorage.getItem('invoices');
     const brandNewInvoice = {...invoice, Id: Date.now(), amount: invoice.amount};
-    console.log('brndNewInvoice :: ', brandNewInvoice);
     let updatedInvoices = [];
     if (invoices) {
       const existingInvoices = JSON.parse(invoices)
-      console.log('existingINvoices :: ', existingInvoices)
       updatedInvoices = [...existingInvoices, {...brandNewInvoice}]
-      console.log('updatedInvoices :: ', updatedInvoices)
 
     } else {
-      console.log(brandNewInvoice)
       updatedInvoices =[{...brandNewInvoice}];
-      console.log('updatedInvoices :: ', updatedInvoices)
 
     }
     localStorage.setItem("invoices", JSON.stringify(updatedInvoices));
