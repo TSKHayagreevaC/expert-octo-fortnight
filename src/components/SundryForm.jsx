@@ -9,7 +9,7 @@ export default function SundryForm({details, deleteSundry, updateSundrysArray}) 
   const [invoice, setInvoice] = React.useState({
             Id: "",
             billSundryName: "",
-            amount: ""
+            amount: 0
    
   });
 
@@ -22,6 +22,8 @@ export default function SundryForm({details, deleteSundry, updateSundrysArray}) 
       setInvoice({...details})
     }
   }, [])
+
+  const condition = invoice.billSundryName?.length && invoice.amount>0
 
   return (
     <Box
@@ -36,9 +38,9 @@ export default function SundryForm({details, deleteSundry, updateSundrysArray}) 
       autoComplete="off" 
     >
       <TextField size='small' type="string" value={invoice.billSundryName} variant="outlined" onChange={(e) => setInvoice({...invoice, billSundryName: e.target.value})} label="Bill Sundry Name" />
-      <TextField size='small' type="number" value={invoice.amount} variant="outlined" onChange={(e) => setInvoice({...invoice, amount: e.target.value})} label="Amount" />
+      <TextField size='small' type="number" InputProps={{ inputProps: { min: 0} }} value={invoice.amount} variant="outlined" onChange={(e) => setInvoice({...invoice, amount: e.target.value})} label="Amount" />
 
-      <Button sx={{margin: 0, maxWidth:50, textTransform: 'none'}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Add</Button>
+      <Button disabled={!condition} sx={{margin: 0, maxWidth:50, textTransform: 'none'}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Add</Button>
       <Button sx={{margin: 0, maxWidth:50, textTransform: 'none'}} size="small" color="error" variant="contained" onClick={() => deleteSundry(details.Id)}>Remove</Button>
 
     </Box>

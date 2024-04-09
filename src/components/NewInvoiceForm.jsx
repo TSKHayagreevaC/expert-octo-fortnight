@@ -28,7 +28,9 @@ export default function NewInvoiceForm() {
   const updateItemsArray = (newItem) => {
     const filteredArray = invoice.Items.filter((ele) => ele.Id !== newItem.Id);
     const updatedItem = {...newItem};
-    setInvoice({...invoice, Items: [...filteredArray, updatedItem]});
+    const itemsArray = [...filteredArray, updatedItem];
+    const total = itemsArray.reduce((acc, val) => acc+val.amount, 0);
+    setInvoice({...invoice, Items: itemsArray, TotalAmount: total});
   }
 
   const updateSundrysArray = (newBill) => {

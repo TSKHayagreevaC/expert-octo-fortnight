@@ -19,6 +19,8 @@ export default function InvoiceItemForm({details, deleteItem, updateItemsArray})
     }
   }, [])
 
+  let condition = invoice.itemName?.length && (invoice.quantity>0) && (invoice.price>0);
+
   return (
     <Box
       component="form"
@@ -30,11 +32,11 @@ export default function InvoiceItemForm({details, deleteItem, updateItemsArray})
       autoComplete="off" 
     >
       <TextField size="small" type="string" value={invoice.itemName} variant="outlined" onChange={(e) => setInvoice({...invoice, itemName: e.target.value})} label="Item Name" />
-      <TextField size="small" type="number" value={invoice.quantity} variant="outlined" onChange={(e) => setInvoice({...invoice, quantity: e.target.value, amount: e.target.value*invoice.price})} label="Quantity" />
-      <TextField size="small" type="number" value={invoice.price} variant="outlined" onChange={(e) => setInvoice({...invoice, price: e.target.value, amount: e.target.value*invoice.quantity})} label="Price" />
-      <TextField size="small" type="number" value={invoice.amount} variant="outlined" onChange={(e) => setInvoice({...invoice, amount: e.target.value})} label="Amount" />
+      <TextField size="small" type="number" InputProps={{ inputProps: { min: 0 } }} value={invoice.quantity} variant="outlined" onChange={(e) => setInvoice({...invoice, quantity: e.target.value, amount: e.target.value*invoice.price})} label="Quantity" />
+      <TextField size="small" type="number" InputProps={{ inputProps: { min: 0 } }} value={invoice.price} variant="outlined" onChange={(e) => setInvoice({...invoice, price: e.target.value, amount: e.target.value*invoice.quantity})} label="Price" />
+      <TextField size="small" type="number" InputProps={{ inputProps: { min: 0 } }} value={invoice.amount} variant="outlined" onChange={(e) => setInvoice({...invoice, amount: e.target.value})} label="Amount" />
 
-      <Button sx={{margin: 0, maxWidth:100, textTransform: 'none'}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Add</Button>
+      <Button disabled={!condition} sx={{margin: 0, maxWidth:100, textTransform: 'none'}} size="small" variant="contained" onClick={() => submitNewInvoice()}>Add</Button>
       <Button sx={{margin: 0, maxWidth:100, textTransform: 'none'}} size="small" color="error" variant="contained" onClick={() => deleteItem(details.Id)}>Remove</Button>
 
     </Box>
