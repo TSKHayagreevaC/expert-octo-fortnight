@@ -28,7 +28,8 @@ function InvoicesDetails() {
     const existingInvoices = localStorage.getItem('invoices');
     let sampleList;
     if (existingInvoices) {
-      sampleList = existingInvoices;
+      const invoicesList = JSON.parse(existingInvoices);
+      sampleList = JSON.stringify([...invoicesList, {...defaultInvoiceList[0]}]);
     } else {
       sampleList = JSON.stringify(defaultInvoiceList);
     }

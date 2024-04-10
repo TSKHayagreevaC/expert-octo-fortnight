@@ -18,7 +18,8 @@ function Invoices() {
       let invoicesList;
       if (existingInvoices) {
         const parsedList = JSON.parse(existingInvoices);
-        invoicesList = existingInvoices;
+        const itemDetails = defaultInvoiceList[0];
+        invoicesList = JSON.stringify([...parsedList, {...itemDetails}]);
       } else {
         invoicesList = JSON.stringify(defaultInvoiceList);
       }
