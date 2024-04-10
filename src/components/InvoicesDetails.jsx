@@ -17,6 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import {Link, useParams} from 'react-router-dom';
 
 import NewInvoiceForm from './NewInvoiceForm';
+import { defaultInvoiceList } from './data';
 
 const drawerWidth = 240;
 function InvoicesDetails() {
@@ -25,12 +26,16 @@ function InvoicesDetails() {
 
   React.useState(() => {
     const existingInvoices = localStorage.getItem('invoices');
+    let sampleList;
     if (existingInvoices) {
-      const parsedList = JSON.parse(existingInvoices);
-      const itemDetails = parsedList.find((ele) => ele.Id.toString() === pathParams.id);
-      if (itemDetails) {
-        setDetails({...itemDetails});
-      }
+      sampleList = existingInvoices;
+    } else {
+      sampleList = JSON.stringify(defaultInvoiceList);
+    }
+    const parsedList = JSON.parse(sampleList);
+    const itemDetails = parsedList.find((ele) => ele.Id.toString() === pathParams.id);
+    if (itemDetails) {
+      setDetails({...itemDetails});
     }
   }, []);
 

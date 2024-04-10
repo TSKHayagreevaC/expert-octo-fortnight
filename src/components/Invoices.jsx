@@ -6,17 +6,24 @@ import {Link} from 'react-router-dom';
 import BasicTable from './BasicTable';
 import Button from '@mui/material/Button';
 import { Add } from '@mui/icons-material';
+import { defaultInvoiceList } from './data';
 
 const drawerWidth = 240;
+
 function Invoices() {
   const [invoicesList, setInvoicesList] = React.useState([])
 
     React.useState(() => {
       const existingInvoices = localStorage.getItem('invoices');
+      let invoicesList;
       if (existingInvoices) {
         const parsedList = JSON.parse(existingInvoices);
-        setInvoicesList(existingInvoices);
+        invoicesList = existingInvoices;
+      } else {
+        invoicesList = JSON.stringify(defaultInvoiceList);
       }
+      console.log("invoices List :: ", JSON.stringify(invoicesList));
+      setInvoicesList(invoicesList);
     }, []);
 
     return  (
